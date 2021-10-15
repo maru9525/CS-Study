@@ -385,3 +385,27 @@ Blocking & Non-Blocking
 
 **해결책**
 
+#### Lock
+
+- 하드웨어 기반 해결책으로써, 동시에 공유 자원에 접근하는 것을 막기위해 Critical Section에 진입하는 프로세스는 Lock을 획득하고 Critical Section을 빠져나올 때, Lock을 방출함으로서 동시에 접근이 되지 않도록 한다.
+
+**한계**
+
+- 다중처리기 환경에서는 시간적인 효율성 측면에서 적용할 수 없다.
+
+#### Semaphores(세마포)
+
+- 스프트웨어상에서 Critical Section 문제를 해결하기 위한 동기화 도구
+
+**종류**
+
+- 카운팅 세마포 : 가용한 개수를 가진 자원에 대한 접근 제어용으로 사용되며, 세마포는 그 가용한 자원의 개수로 초기화 된다. 자원을 사용하면 세마포가 감소, 방출하면 세마포가 증가한다.
+- 이진 세마포 : MUTEX라도로 부르며, 상호배제의 (Mutual Exclusion)의 머릿글자를 따서 만들어졌다. 이름 그대로 0 과 1 사이의 값만 가능하며, 다중 프로세스들 사이의 Critical Section 문제를 해결하기 위해 사용한다.
+
+**단점**
+
+- Busy Waiting(바쁜 대기) : Spin lock이라고 불리는 Semaphore 초기 버전에서 Critical Section 에 진입해야하는 프로세스는 진입 코드를 계속 반복 실행해야 하며, CPU 시간을 낭비했었다. 이를 Busy Waiting이라고 부르며 특수한 상황이 아니면 비효율적이다. 일반적으로는 Semaphore에서 Critical Section에 진입을 시도했지만 실패한 프로세스에 대해 Block시킨 뒤, Critical Section에 자리가 날 때 다시 깨우는 방식을 사용한다. 이 경우 Busy waiting으로 인한 시간낭비 문제가 해결된다.
+
+#### Deadlock(교착상태)
+
+- 세마포가 Ready Queue를 가지고 있고, 둘 이상의 프로세스가 Critical Section 진입을 무한정 기다리고 있고, Critical Section 에서 실행되는 프로세스ㅡㄴ 진입 대기중인 프로세슷가 실행되야만 빠져나올 수 있는 상황을 지칭한다.
